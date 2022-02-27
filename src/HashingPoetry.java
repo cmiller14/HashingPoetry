@@ -3,7 +3,8 @@ import java.util.Scanner;
 
 public class HashingPoetry {
     public static void main(String[] args) {
-//        WritePoetry poem = new WritePoetry();
+        WritePoetry poem = new WritePoetry();
+        poem.writePoem("green.txt", "sam", 30, false);
 
 //        System.out.println("--- Sam ---");
 //        System.out.println(poem.writePoem("green.txt", "sam", 30, false));
