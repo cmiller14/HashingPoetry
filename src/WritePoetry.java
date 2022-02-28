@@ -8,15 +8,28 @@ public class WritePoetry {
         HashTable<String, WordFreqInfo> hashTable = new HashTable<>();
         HashTable<String, WordFreqInfo> hashTableComplete = generateHashTable(file, hashTable);
 
+        if (printHashtable) {
+            System.out.println(hashTableComplete.toString(hashTableComplete.size()));
+        }
+
+        StringBuilder poem = new StringBuilder();
+        poem.append(startWord);
+        String currentWordString = startWord;
+
+        for (int i = 0; i < length; i++) {
+            WordFreqInfo currentWord = hashTableComplete.find(currentWordString);
+            int count = (int) (Math.random() * (currentWord.getOccurCount()-1));
+            currentWordString = currentWord.getFollowWord(count);
+            poem.append(" " + currentWordString);
+        }
 
 
 
-        return "this";
+
+        return poem.toString();
     }
 
     private HashTable generateHashTable(String file, HashTable<String,WordFreqInfo> hashTable) {
-
-
         // first I need to read in the file one line at a time
         File poemFile = new File(file);
         try {
@@ -27,7 +40,7 @@ public class WritePoetry {
 
                 String[] splitLine = line.split("[ ]");
 
-                for (int i = 0; i < splitLine.length; i++) {
+                for (int i = 0; i < splitLine.length-1; i++) {
                     String word = splitLine[i];
                     String followingWord = splitLine[i+1];
                     followingWord = followingWord.replaceAll("[.?!,]", "");
@@ -77,9 +90,5 @@ public class WritePoetry {
         return hashTable;
     }
 
-
-    private void printHashTable() {
-        
-    }
 
 }

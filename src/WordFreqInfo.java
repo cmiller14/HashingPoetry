@@ -22,6 +22,23 @@ public class WordFreqInfo {
         return sb.toString();
     }
 
+    public String getFollowWord(int count) {
+        String followWord = "";
+        if (count == 0) {
+            followWord = followList.get(0).follow;
+        }
+        int index = 0;
+        while (index < count) {
+            for (Frequency f : followList) {
+                for (int i = 0; i < f.followCount; i++) {
+                    followWord = f.follow;
+                    index++;
+                }
+            }
+        }
+        return followWord;
+    }
+
     public void updateFollows(String follow) {
         this.occurCount++;
         boolean updated = false;

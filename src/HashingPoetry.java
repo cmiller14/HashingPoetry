@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class HashingPoetry {
     public static void main(String[] args) {
         WritePoetry poem = new WritePoetry();
-        poem.writePoem("green.txt", "sam", 30, false);
+        System.out.println(poem.writePoem("green.txt", "sam", 5, true));
 
 //        System.out.println("--- Sam ---");
 //        System.out.println(poem.writePoem("green.txt", "sam", 30, false));
@@ -18,8 +18,8 @@ public class HashingPoetry {
 //        System.out.println(poem.writePoem("how-many.txt", "how", 50, false));
 //        System.out.println();
 
-        testHashTable("zebra.txt");
-        testUpdatedHashTable();
+//        testHashTable("zebra.txt");
+//        testUpdatedHashTable();
     }
 
     private static void testHashTable(String filename) {
