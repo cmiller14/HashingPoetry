@@ -24,17 +24,14 @@ public class WordFreqInfo {
 
     public String getFollowWord(int count) {
         String followWord = "";
-        if (count == 0) {
-            followWord = followList.get(0).follow;
-        }
-        int index = 0;
-        while (index < count) {
-            for (Frequency f : followList) {
-                for (int i = 0; i < f.followCount; i++) {
-                    followWord = f.follow;
-                    index++;
-                }
+        int wordCount = 0;
+        while (count >= 0) {
+            Frequency currentWord = followList.get(wordCount);
+            followWord = currentWord.follow;
+            for (int i = 0; i < currentWord.followCount; i++) {
+                count--;
             }
+            wordCount++;
         }
         return followWord;
     }
