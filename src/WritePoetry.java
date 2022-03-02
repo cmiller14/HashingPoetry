@@ -7,7 +7,9 @@ public class WritePoetry {
 
     public String writePoem(String file, String startWord, int length, boolean printHashtable) {
         HashTable<String, WordFreqInfo> hashTable = new HashTable<>();
-        HashTable<String, WordFreqInfo> hashTableComplete = generateHashTable(file, hashTable);
+        ArrayList<String> poemText = new ArrayList<>();
+        poemText = readFile(file,poemText);
+        HashTable<String, WordFreqInfo> hashTableComplete = generateHashTable(hashTable,poemText);
 
         if (printHashtable) {
             System.out.println(hashTableComplete.toString(hashTableComplete.size()));
@@ -53,20 +55,16 @@ public class WritePoetry {
         }
     }
 
-    private HashTable generateHashTable(String file, HashTable<String,WordFreqInfo> hashTable) {
-        // first I need to read in the file one line at a time
+    private ArrayList<String> readFile(String file, ArrayList<String> poemText) {
         File poemFile = new File(file);
-        ArrayList<String> poemText = new ArrayList<>();
+
         try {
             Scanner input = new Scanner(poemFile);
             while (input.hasNextLine()) {
                 //read the file one line at a time and insert the infor into the hash table
                 String line = input.nextLine();
-
-
                 String[] splitLine = line.split("[ ]");
-
-                // add all the words and characters to an array list
+                // add all the words and characters to the hash table array list
                 for (int i = 0; i < splitLine.length; i++) {
                     //Check for punctuation
                     String word = splitLine[i];
@@ -80,17 +78,18 @@ public class WritePoetry {
                         }
                     }
                 }
-
             }
-
         } catch (java.io.IOException ex) {
             System.out.println("An error occurred trying to read the poem: " + ex);
         }
+        return poemText;
+    }
 
-        //iterate through the array list and add everything to the hash table
-        for (int i = 0; i < poemText.size()-1; i++) {
-            String word = poemText.get(i);
-            String followingWord = poemText.get(i+1);
+    private HashTable generateHashTable(HashTable<String,WordFreqInfo> hashTable, ArrayList<String> words) {
+                //iterate through the array list and add everything to the hash table
+        for (int i = 0; i < words.size()-1; i++) {
+            String word = words.get(i);
+            String followingWord = words.get(i+1);
 
             if (hashTable.contains(word)) {
                 WordFreqInfo usedWordInfo = hashTable.find(word);
@@ -102,9 +101,6 @@ public class WritePoetry {
                 hashTable.insert(word,newWordInfo);
             }
         }
-
-
-
         return hashTable;
     }
 
